@@ -1,0 +1,47 @@
+---
+- name: setup web server
+  hosts: app
+  user: centos
+  become: true
+  gather_facts: true
+  tasks:
+    - name: install epel-release package
+      yum:
+        name:
+          - epel-release
+        state: present
+
+    - name: install git 
+      yum:
+        name:
+          - git
+          - python-pip
+          - yum-utils
+        state: present
+
+    - name: add docker-ce repo
+      shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+    - name: install docker
+      yum:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose
+
+    - name: start docker
+      service:
+        name: docker
+        state: present
+        enabled: true
+
+    - name: copy ssh key
+      ansible.posix.authorized_key:
+        user: root
+        stste: present
+        key: "{{ lookup('ansible.builtin.file', '~/ofir_keypair') }}"
+
+    - name: clone app repo
+      shell: git clone https://github.com/ofirMegi/final-ci-cd.git
+

@@ -1,0 +1,21 @@
+1.git repo:
+git clone to the app repo:
+ app directory: the files of the app we will run
+creating ansible directory:
+ creating 2 playbooks infra.yml, destroy-infra.yml 
+ creating a group_vars directory inside there will be the vars we need for the playbooks 
+ ansible directory: the first playbook will create the infrastructure the second playbook will destroy the infrasructure. A directory that contains the vars of the playbooks 
+creating docker directory:
+create a dockerfile and a dockercompose of the app  
+docker directory: will contain the dockerfile and the dockercompose of the app
+
+2.jenkins:
+creating a job that will check and run the app repo the ansible playbooks and the docker compose/file(testing)
+jenkins file:
+build:
+build to the git repo
+test: 
+test of the git repo if the build successed
+deploy:
+the git repo will be uploaded to the production server
+

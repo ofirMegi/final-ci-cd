@@ -1,0 +1,6 @@
+FROM node:10-alpine
+WORKDIR /app
+EXPOSE 5000
+COPY /home/ec2-user/final-ci-cd .
+RUN pip install --no-cache-dir -r requirements.txt
+CMD  ["node", "app.js"]
